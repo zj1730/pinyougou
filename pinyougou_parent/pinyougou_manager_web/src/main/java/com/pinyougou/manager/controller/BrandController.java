@@ -1,7 +1,7 @@
 package com.pinyougou.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.pinyougou.BrandService;
+import com.pinyougou.sellergoods.service.BrandService;
 import entity.PageResult;
 import com.pinyougou.pojo.TbBrand;
 import entity.Result;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/brand")
@@ -75,5 +76,10 @@ public class BrandController {
     public PageResult search(int pageNum,int pageSize,@RequestBody TbBrand tbBrand){
         //调用service方法
         return brandService.search(pageNum,pageSize,tbBrand);
+    }
+
+    @RequestMapping("/findSelectList")
+    public List<Map> findSelectList(){
+        return brandService.findSelectList();
     }
 }
