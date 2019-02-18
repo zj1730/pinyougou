@@ -1,4 +1,5 @@
 package com.pinyougou.sellergoods.service.impl;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -11,6 +12,8 @@ import com.pinyougou.pojo.TbSellerExample.Criteria;
 import com.pinyougou.sellergoods.service.SellerService;
 
 import entity.PageResult;
+
+import static constant.Constant.SELLER_UNCHECKED;
 
 /**
  * 服务实现层
@@ -46,7 +49,9 @@ public class SellerServiceImpl implements SellerService {
 	 */
 	@Override
 	public void add(TbSeller seller) {
-		sellerMapper.insert(seller);		
+		seller.setStatus(SELLER_UNCHECKED);
+		seller.setCreateTime(new Date());
+		sellerMapper.insert(seller);
 	}
 
 	
@@ -109,7 +114,8 @@ public class SellerServiceImpl implements SellerService {
 				criteria.andTelephoneLike("%"+seller.getTelephone()+"%");
 			}
 			if(seller.getStatus()!=null && seller.getStatus().length()>0){
-				criteria.andStatusLike("%"+seller.getStatus()+"%");
+							criteria.andStatusEqualTo(seller.getStatus());
+				//criteria.andStatusLike("%"+seller.getStatus()+"%");
 			}
 			if(seller.getAddressDetail()!=null && seller.getAddressDetail().length()>0){
 				criteria.andAddressDetailLike("%"+seller.getAddressDetail()+"%");
@@ -159,5 +165,15 @@ public class SellerServiceImpl implements SellerService {
 		Page<TbSeller> page= (Page<TbSeller>)sellerMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-	
+
+    @Override
+    public void updateStatus(String sellerId, String status) {
+		//查询出要修改的用户
+		TbSeller seller = sellerMapper.selectByPrimaryKey(sellerId);
+		//更新用户状态
+		seller.setStatus(status);
+		//更新用户数据
+		sellerMapper.updateByPrimaryKey(seller);
+	}
+
 }

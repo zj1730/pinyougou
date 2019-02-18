@@ -4,37 +4,37 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class TbSeller implements Serializable {
-    private String sellerId;
+    private String sellerId;//登录名
 
-    private String name;
+    private String name;//公司名称
 
-    private String nickName;
+    private String nickName;//店铺名
 
-    private String password;
+    private String password;//登录密码
 
-    private String email;
+    private String email;//
 
     private String mobile;
 
-    private String telephone;
+    private String telephone;//公司电话
 
     private String status;
 
-    private String addressDetail;
+    private String addressDetail;//公司详细地址
 
-    private String linkmanName;
+    private String linkmanName;//联系人名称
 
-    private String linkmanQq;
+    private String linkmanQq;//联系人QQ
 
-    private String linkmanMobile;
+    private String linkmanMobile;//联系人手机
 
-    private String linkmanEmail;
+    private String linkmanEmail;//练习人邮箱
 
-    private String licenseNumber;
+    private String licenseNumber;//营业执照号
 
-    private String taxNumber;
+    private String taxNumber;//税务号
 
-    private String orgNumber;
+    private String orgNumber;//组织机构代码证
 
     private Long address;
 

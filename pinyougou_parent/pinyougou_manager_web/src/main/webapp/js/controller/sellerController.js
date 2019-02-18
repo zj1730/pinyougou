@@ -50,6 +50,18 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 			}		
 		);				
 	}
+	//更新审核状态
+	$scope.update=function (id,status) {
+		sellerService.updateStatus(id,status).success(
+			function(response) {
+			if(response.success){
+				//刷新当前页面
+				$scope.reloadList();
+			}else{
+				alert(response.message);
+			}
+        });
+    };
 	
 	 
 	//批量删除 

@@ -21,6 +21,12 @@ app.service('sellerService',function($http){
 	this.update=function(entity){
 		return  $http.post('../seller/update.do',entity );
 	}
+	//修改审核状态
+	this.updateStatus=function (id,status) {
+		return $http.get('../seller/updateStatus.do?sellerId='+id+'&status='+status);
+    };
+
+
 	//删除
 	this.dele=function(ids){
 		return $http.get('../seller/delete.do?ids='+ids);
