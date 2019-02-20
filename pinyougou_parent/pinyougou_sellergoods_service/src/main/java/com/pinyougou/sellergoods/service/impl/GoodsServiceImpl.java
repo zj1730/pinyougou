@@ -1,5 +1,9 @@
 package com.pinyougou.sellergoods.service.impl;
 import java.util.List;
+
+import com.pinyougou.mapper.TbGoodsDescMapper;
+import com.pinyougou.pojo.TbGoodsDesc;
+import com.pinyougou.pojogroup.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
@@ -22,6 +26,9 @@ public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
 	private TbGoodsMapper goodsMapper;
+
+	@Autowired
+	private TbGoodsDescMapper tbGoodsDescMapper;
 	
 	/**
 	 * 查询全部
@@ -45,8 +52,19 @@ public class GoodsServiceImpl implements GoodsService {
 	 * 增加
 	 */
 	@Override
-	public void add(TbGoods goods) {
-		goodsMapper.insert(goods);		
+	public void add(Goods goods) {
+
+		/*
+		* 要添加两张表的数据，两张表数据关联，先插入主表，返回id，然后再插入从表
+		* */
+		TbGoods tbGoods = goods.getGoods();
+		goods.getGoods().setAuditStatus("0");
+		goodsMapper.insert(tbGoods);
+		TbGoodsDesc goodsDesc = goods.getGoodsDesc();
+		goodsDesc.setGoodsId(tbGoods.getId());
+		//插入从表数据
+		tbGoodsDescMapper.insert(goodsDesc);
+
 	}
 
 	

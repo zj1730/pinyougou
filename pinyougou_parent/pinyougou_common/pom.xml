@@ -10,6 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pinyougou_common</artifactId>
-
+    <dependencies>
+        <!-- 文件上传组件 -->
+        <dependency>
+            <groupId>org.csource.fastdfs</groupId>
+            <artifactId>fastdfs</artifactId>
+        </dependency>
+       
+    </dependencies>
 
 </project>

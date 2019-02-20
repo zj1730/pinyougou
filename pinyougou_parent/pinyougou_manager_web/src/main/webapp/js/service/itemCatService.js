@@ -13,6 +13,10 @@ app.service('itemCatService',function($http){
 	this.findOne=function(id){
 		return $http.get('../itemCat/findOne.do?id='+id);
 	}
+	//查询分类下一级
+	this.findByParentId=function (parentId) {
+		return $http.get('../itemCat/findByParentId.do?parentId='+parentId);
+    }
 	//增加 
 	this.add=function(entity){
 		return  $http.post('../itemCat/add.do',entity );
@@ -28,5 +32,7 @@ app.service('itemCatService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../itemCat/search.do?page='+page+"&rows="+rows, searchEntity);
-	}    	
+	}
+
+
 });

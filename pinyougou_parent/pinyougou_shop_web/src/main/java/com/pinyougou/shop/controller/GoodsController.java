@@ -1,6 +1,9 @@
 package com.pinyougou.shop.controller;
 import java.util.List;
 
+import com.pinyougou.pojogroup.Goods;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +13,9 @@ import com.pinyougou.sellergoods.service.GoodsService;
 
 import entity.PageResult;
 import entity.Result;
+import org.springframework.web.multipart.MultipartFile;
+import utils.FastDFSClient;
+
 /**
  * controller
  * @author Administrator
@@ -21,7 +27,10 @@ public class GoodsController {
 
 	@Reference
 	private GoodsService goodsService;
-	
+
+	//@Value("${FILE_SERVER_URL}")
+
+	private String FILE_SERVER_URL="http://192.168.25.133/";
 	/**
 	 * 返回全部列表
 	 * @return
@@ -47,7 +56,11 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbGoods goods){
+	public Result add(@RequestBody Goods goods){
+
+		//获取当前登录用户信息
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		goods.getGoods().setSellerId(name);
 		try {
 			goodsService.add(goods);
 			return new Result(true, "增加成功");
@@ -101,7 +114,7 @@ public class GoodsController {
 	
 		/**
 	 * 查询+分页
-	 * @param brand
+	 * @param goods
 	 * @param page
 	 * @param rows
 	 * @return
@@ -110,5 +123,10 @@ public class GoodsController {
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
 		return goodsService.findPage(goods, page, rows);		
 	}
+
+
+
+
+
 	
 }

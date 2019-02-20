@@ -89,6 +89,9 @@
     from tb_type_template
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <select id="selectOptionList" resultType="java.util.Map">
+    select id,name as text from tb_type_template
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_type_template
     where id = #{id,jdbcType=BIGINT}

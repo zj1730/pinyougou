@@ -25,7 +25,7 @@ app.controller('typeTemplateController' ,function($scope,$controller   ,typeTemp
         });
     };
 
-    $scope.specificationList={data:[{id:1,text:'联想'},{id:2,text:'华为'},{id:3,text:'小米'}]};
+    $scope.specificationList={data:[]};
     //查询规格下拉数据
     $scope.findSpecification=function () {
 		//调用specificationService

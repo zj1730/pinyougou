@@ -40,7 +40,12 @@ public class ItemCatController {
 	public PageResult  findPage(int page,int rows){			
 		return itemCatService.findPage(page, rows);
 	}
-	
+
+	@RequestMapping("/findByParentId")
+	public List<TbItemCat> findByParentId(Long parentId){
+		return itemCatService.findByParentId(parentId);
+	}
+
 	/**
 	 * 增加
 	 * @param itemCat
