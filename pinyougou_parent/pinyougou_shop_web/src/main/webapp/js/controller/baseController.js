@@ -58,5 +58,16 @@ app.controller('baseController' ,function($scope){
 		}
     }
 
+    //查找对象集合中用户属性key的值等于keyValue的对象
+    $scope.searchObjectByKey=function (list,key,keyValue) {
+		//遍历集合
+		for(var i=0;i<list.length;i++){
+			if(list[i][key]==keyValue){//错误代码  if(list[i][key]=keyValue）
+				return list[i];
+			}
+		}
+		return null;
+    }
+
 	
 });	
