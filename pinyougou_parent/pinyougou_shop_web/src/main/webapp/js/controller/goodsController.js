@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService ,uploadService,itemCatService,typeTemplateService){
+app.controller('goodsController' ,function($scope,$controller ,$location  ,goodsService ,uploadService,itemCatService,typeTemplateService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -23,16 +23,53 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService ,u
 	}
 	
 	//查询实体 
-	$scope.findOne=function(id){				
+	$scope.findOne=function(){
+	    //获取路径中的参数
+        var id = $location.search()['id'];
+        if(id==null){
+            //添加页面时候，没有id值,不进行查询
+            return;
+        }
 		goodsService.findOne(id).success(
 			function(response){
-				$scope.entity= response;					
+				$scope.entity= response;
+				//数据填充到富文本编辑器中
+				editor.html(response.goodsDesc.introduction);
+				//对模板数据进行转换
+				$scope.entity.goodsDesc.customAttributeItems=JSON.parse(response.goodsDesc.customAttributeItems);
+				//对规格数据进行转换
+                $scope.entity.goodsDesc.specificationItems=JSON.parse(response.goodsDesc.specificationItems);
+                //对图片数据进行转换
+                $scope.entity.goodsDesc.itemImages=JSON.parse(response.goodsDesc.itemImages);
+                //对itemList数据进行转换
+				for(var i=0;i<$scope.entity.itemList.length;i++){
+                    $scope.entity.itemList[i].spec=JSON.parse($scope.entity.itemList[i].spec);
+				}
 			}
 		);				
-	}
+	};
+
+	//判断复选框对应的数据是否在goods的规格数据中
+	$scope.getCheckedStatus=function(name,value){
+		//判断对应的规格和属性是否存在
+		//[{"attributeName":"网络制式","attributeValue":["移动3G","移动4G"]},{"attributeName":"屏幕尺寸","attributeValue":["6寸","5寸"]}]
+		var spec=$scope.entity.goodsDesc.specificationItems;
+		for(var i=0;i<spec.length;i++){
+			if(spec[i].attributeName==name){
+				for(var j=0;j<spec[i].attributeValue.length;j++){
+					if(spec[i].attributeValue[j]==value){
+						return true;
+					}
+				}
+				return false;
+			}
+		}
+		return false;
+	};
+
 
 	//添加
-	$scope.add=function () {
+	/*$scope.add=function () {
         //获取富文本编辑器内容
 		$scope.entity.goodsDesc.introduction=editor.html();
         goodsService.add( $scope.entity).success(
@@ -46,21 +83,28 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService ,u
                 }
             }
         );
-    };
-	
-	//保存 
-	$scope.save=function(){				
-		var serviceObject;//服务层对象  				
-		if($scope.entity.id!=null){//如果有ID
+    };*/
+
+    //保存
+    $scope.save=function(){
+        //提取文本编辑器的内容
+        $scope.entity.goodsDesc.introduction=editor.html();
+        var serviceObject;//服务层对象
+
+        if($scope.entity.goods.id!=null){//如果有ID
 			serviceObject=goodsService.update( $scope.entity ); //修改  
 		}else{
+            //获取富文本编辑器内容
+
 			serviceObject=goodsService.add( $scope.entity  );//增加 
 		}				
 		serviceObject.success(
 			function(response){
 				if(response.success){
-					//重新查询 
-		        	$scope.reloadList();//重新加载
+                    // //重新查询
+		        	// $scope.reloadList();//重新加载
+                    alert("保存成功");
+                    location.href="goods.html";//跳转到商品列表页
 				}else{
 					alert(response.message);
 				}
@@ -156,7 +200,10 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService ,u
 		typeTemplateService.findOne(newValue).success(function (response) {
             $scope.typeTemplate=response;//查询到模板的数据
             $scope.typeTemplate.brandIds=JSON.parse(response.brandIds);//将品牌列表的数据转为Json格式，应该赋值给goods数据
-            $scope.entity.goodsDesc.customAttributeItems=JSON.parse(response.customAttributeItems);
+            if($location.search()['id']==null){
+            	//新增
+                $scope.entity.goodsDesc.customAttributeItems=JSON.parse(response.customAttributeItems);
+            }
 
         });
 		typeTemplateService.findSpecList(newValue).success(function (response) {
@@ -226,5 +273,19 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService ,u
 			}
 		}
 		return newList;
+    };
+
+	//状态数组
+    $scope.status=['未审核','已审核','审核未通过','关闭'];//商品状态
+
+	//查询全部分类信息
+    $scope.itemCatList=[];
+	$scope.findItemCat=function () {
+        itemCatService.findAll().success(function (response) {
+			//将分类数据转换为数组
+            for(var i=0;i<response.length;i++){
+                $scope.itemCatList[response[i].id]=response[i].name;
+			}
+        });
     }
 });	

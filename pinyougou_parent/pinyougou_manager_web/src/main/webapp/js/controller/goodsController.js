@@ -1,8 +1,10 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService){	
+app.controller('goodsController' ,function($scope,$controller ,itemCatService  ,goodsService){
 	
 	$controller('baseController',{$scope:$scope});//继承
-	
+
+    $scope.status=['未审核','已审核','审核未通过','关闭'];//商品状态
+
     //读取列表数据绑定到表单中  
 	$scope.findAll=function(){
 		goodsService.findAll().success(
@@ -76,5 +78,30 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 			}			
 		);
 	}
+
+    //查询全部分类信息
+    $scope.itemCatList=[];
+    $scope.findItemCat=function () {
+        itemCatService.findAll().success(function (response) {
+            //将分类数据转换为数组
+            for(var i=0;i<response.length;i++){
+                $scope.itemCatList[response[i].id]=response[i].name;
+            }
+        });
+    }
+
+    //更新商品状态
+    $scope.updateStatus=function (state) {
+        goodsService.updateStatus($scope.selectIds,state).success(function (response) {
+            if(response.success){
+                //清空选中集合
+                $scope.selectIds=[];
+                //刷新列表
+                $scope.reloadList();
+            }else {
+                alert(response.message);
+            }
+        });
+    }
     
 });	

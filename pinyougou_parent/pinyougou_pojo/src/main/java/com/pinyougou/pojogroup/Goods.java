@@ -13,6 +13,8 @@ public class Goods implements Serializable{
     private TbGoodsDesc goodsDesc;	//商品SPU扩展信息
     private List<TbItem> itemList;//SKU列表
 
+
+
     public TbGoods getGoods() {
         return goods;
     }

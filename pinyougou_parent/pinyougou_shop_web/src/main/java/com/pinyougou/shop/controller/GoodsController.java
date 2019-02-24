@@ -46,7 +46,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findPage")
-	public PageResult  findPage(int page,int rows){			
+	public PageResult  findPage(int page,int rows){
 		return goodsService.findPage(page, rows);
 	}
 	
@@ -76,7 +76,15 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/update")
-	public Result update(@RequestBody TbGoods goods){
+	public Result update(@RequestBody Goods goods){
+		//获取商家id
+		//当前用户要修改别的用户的商品，并且已经把该商品的商家id改为自己的id的情况，要进行判断
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		Goods goods2 = goodsService.findOne(goods.getGoods().getId());
+		String sellerId = goods.getGoods().getSellerId();
+		if(!sellerId.equals(name)||!goods2.getGoods().getSellerId().equals(name)){
+			return new Result(false,"非法操作");
+		}
 		try {
 			goodsService.update(goods);
 			return new Result(true, "修改成功");
@@ -92,7 +100,7 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/findOne")
-	public TbGoods findOne(Long id){
+	public Goods findOne(Long id){
 		return goodsService.findOne(id);		
 	}
 	
@@ -121,6 +129,9 @@ public class GoodsController {
 	 */
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
+		//获取用户登录信息
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		goods.setSellerId(name);
 		return goodsService.findPage(goods, page, rows);		
 	}
 
