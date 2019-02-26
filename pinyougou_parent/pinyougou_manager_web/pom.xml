@@ -92,6 +92,12 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.pinyougou</groupId>
+            <artifactId>pinyougou_content_interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- 身份验证 -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -101,6 +107,13 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
         </dependency>
+
+        <!--spirngmvc文件上传-->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+
 
     </dependencies>
     <build>

@@ -137,7 +137,7 @@ app.controller('goodsController' ,function($scope,$controller ,$location  ,goods
 			}			
 		);
 	};
-
+    $scope.image_entity={}
 	//文件上传
     $scope.uploadFile=function () {
         // alert( $scope.image_entity.url);
