@@ -14,6 +14,7 @@ import com.pinyougou.pojo.TbTypeTemplateExample.Criteria;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
 
 import entity.PageResult;
+import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * 服务实现层
@@ -28,6 +29,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 
 	@Autowired
 	private TbSpecificationOptionMapper specificationOptionMapper;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
 	/**
 	 * 查询全部
 	 */
@@ -106,12 +110,29 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 			}
 	
 		}
-		
-		Page<TbTypeTemplate> page= (Page<TbTypeTemplate>)typeTemplateMapper.selectByExample(example);		
+
+		Page<TbTypeTemplate> page= (Page<TbTypeTemplate>)typeTemplateMapper.selectByExample(example);
+		//缓存到redis中
+		saveRedis();
 		return new PageResult(page.getTotal(), page.getResult());
 	}
 
-    @Override
+	private void saveRedis() {
+		//缓存商品品牌
+		List<TbTypeTemplate> templateList = findAll();
+		for (TbTypeTemplate tbTypeTemplate : templateList) {
+			//获取所有的品牌
+			List<Map> brands = JSON.parseArray(tbTypeTemplate.getBrandIds(), Map.class);
+			//获取所有的规格数据
+			List<Map> specList = findSpecList(tbTypeTemplate.getId());
+			//添加到reids缓存中
+			redisTemplate.boundHashOps("brandList").put(tbTypeTemplate.getId(),brands);
+			redisTemplate.boundHashOps("specList").put(tbTypeTemplate.getId(),specList);
+			System.out.println("缓存规格和模板数据");
+		}
+	}
+
+	@Override
     public List<Map> selectOptionList() {
 
 		return typeTemplateMapper.selectOptionList();
