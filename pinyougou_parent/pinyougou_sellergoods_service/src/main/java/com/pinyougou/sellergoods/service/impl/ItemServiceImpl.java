@@ -132,5 +132,14 @@ public class ItemServiceImpl implements ItemService {
 		Page<TbItem> page= (Page<TbItem>)itemMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
-	
+
+    @Override
+    public List<TbItem> findByGoodsIdAndStatus(Long goodsId, String status) {
+		TbItemExample example = new TbItemExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andStatusEqualTo(status);
+		criteria.andGoodsIdEqualTo(goodsId);
+		return itemMapper.selectByExample(example);
+    }
+
 }

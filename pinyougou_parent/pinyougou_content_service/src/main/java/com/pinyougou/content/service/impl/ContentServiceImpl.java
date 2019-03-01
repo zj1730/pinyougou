@@ -48,7 +48,7 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public List<TbContent> findByCategoryId(Long CategoryId) {
 
-		List<TbContent> tbContents = (List<TbContent>) redisTemplate.boundHashOps("content").get(CategoryId);
+		List<TbContent> tbContents = (List<TbContent>) redisTemplate.boundHashOps("content").get(CategoryId+"");
 		if(tbContents==null){
 
 			TbContentExample example = new TbContentExample();
@@ -60,7 +60,7 @@ public class ContentServiceImpl implements ContentService {
 			//排序
 			example.setOrderByClause("sort_order");
 			tbContents = contentMapper.selectByExample(example);
-			redisTemplate.boundHashOps("content").put(CategoryId,tbContents);
+			redisTemplate.boundHashOps("content").put(CategoryId+"",tbContents);
 		}else{
 			System.out.println("从缓存中获取数据");
 		}
@@ -77,7 +77,7 @@ public class ContentServiceImpl implements ContentService {
 		//获取插入的广告的分类
 		Long categoryId = content.getCategoryId();
 		//将对应分类的广告缓存删除
-		redisTemplate.boundHashOps("content").delete(categoryId);
+		redisTemplate.boundHashOps("content").delete(categoryId+"");
 		//更新广告数据
 		contentMapper.insert(content);
 		/*增加到缓存中的数据，不知道增加的是什么分类的，可以获取分类，然后清楚对应的缓存*/
@@ -91,11 +91,11 @@ public class ContentServiceImpl implements ContentService {
 	public void update(TbContent content){
 		//获取该广告原先的分类id
 		Long oldCategoryId = contentMapper.selectByPrimaryKey(content.getId()).getCategoryId();
-		redisTemplate.boundHashOps("content").delete(oldCategoryId);
+		redisTemplate.boundHashOps("content").delete(oldCategoryId+"");
 		//当前的广告分类id
 		Long newCategoryId = content.getCategoryId();
 		if (newCategoryId.longValue()!=oldCategoryId.longValue()){
-			redisTemplate.boundHashOps("content").delete(newCategoryId);
+			redisTemplate.boundHashOps("content").delete(newCategoryId+"");
 		}
 		contentMapper.updateByPrimaryKey(content);
 	}	
@@ -117,7 +117,7 @@ public class ContentServiceImpl implements ContentService {
 	public void delete(Long[] ids) {
 		for(Long id:ids){
 			Long categoryId = contentMapper.selectByPrimaryKey(id).getCategoryId();
-			redisTemplate.boundHashOps("content").delete(categoryId);
+			redisTemplate.boundHashOps("content").delete(categoryId+"");
 			contentMapper.deleteByPrimaryKey(id);
 		}		
 	}

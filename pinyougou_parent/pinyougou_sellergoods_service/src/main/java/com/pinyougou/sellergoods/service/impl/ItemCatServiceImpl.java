@@ -18,7 +18,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @author Administrator
  *
  */
-@Service
+@Service(timeout = 5000)
 public class ItemCatServiceImpl implements ItemCatService {
 
 	@Autowired
@@ -118,8 +118,10 @@ public class ItemCatServiceImpl implements ItemCatService {
 		//遍历分类数据，将数据添加到缓存中
 		for (TbItemCat category : categorys) {
 			redisTemplate.boundHashOps("itemCat").put(category.getName(),category.getTypeId());
+
 		}
 		System.out.println("更新 分类 缓存数据");
+
 
 		return itemCatMapper.selectByExample(example);
 	}

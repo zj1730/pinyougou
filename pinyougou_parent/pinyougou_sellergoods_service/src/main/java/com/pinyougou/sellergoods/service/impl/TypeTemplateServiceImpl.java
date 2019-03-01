@@ -126,8 +126,8 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 			//获取所有的规格数据
 			List<Map> specList = findSpecList(tbTypeTemplate.getId());
 			//添加到reids缓存中
-			redisTemplate.boundHashOps("brandList").put(tbTypeTemplate.getId(),brands);
-			redisTemplate.boundHashOps("specList").put(tbTypeTemplate.getId(),specList);
+			redisTemplate.boundHashOps("brandList").put(tbTypeTemplate.getId()+"",brands);
+			redisTemplate.boundHashOps("specList").put(tbTypeTemplate.getId()+"",specList);
 			System.out.println("缓存规格和模板数据");
 		}
 	}
