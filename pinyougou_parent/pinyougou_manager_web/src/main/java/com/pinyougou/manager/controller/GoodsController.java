@@ -1,6 +1,7 @@
 package com.pinyougou.manager.controller;
 import java.util.List;
 
+import com.pinyougou.page.service.PageService;
 import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojogroup.Goods;
 import com.pinyougou.search.service.ItemSearchService;
@@ -30,6 +31,9 @@ public class GoodsController {
 	private ItemService itemService;
 	@Reference
 	private ItemSearchService itemSearchService;
+
+	@Reference(timeout = 5000)
+	private PageService pageService;
 
 	/**
 	 * 返回全部列表
@@ -133,6 +137,9 @@ public class GoodsController {
                 for (Long id : ids) {
                     List<TbItem> items = itemService.findByGoodsIdAndStatus(id, state);
                     itemSearchService.importList(items);
+                    //生成静态页面
+					boolean flag = pageService.getItemHtml(id);
+					System.out.println("生成文件："+flag);
                 }
             }
 
@@ -142,5 +149,13 @@ public class GoodsController {
             return new Result(false,"修改失败");
         }
     }
+
+    @RequestMapping("/getHtml")
+	public Result getHtml(Long goodsId){
+		//生成html文件
+		boolean flag = pageService.getItemHtml(goodsId);
+		System.out.println("生成文件："+flag);
+		return new Result(flag,"生成文件");
+	}
 	
 }

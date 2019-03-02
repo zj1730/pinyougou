@@ -110,7 +110,7 @@
     </dependencies>
 
     <build>
-        <finalName>pinyougou_sellergoods_service</finalName>
+        <finalName>pinyougou_search_service</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <!-- 配置Tomcat插件 -->

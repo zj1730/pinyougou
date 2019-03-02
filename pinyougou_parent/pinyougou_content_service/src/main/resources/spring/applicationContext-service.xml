@@ -16,6 +16,7 @@
     <dubbo:registry address="zookeeper://192.168.25.129:2181"/>
 	<!--包扫描路径-->
     <dubbo:annotation package="com.pinyougou.content.service.impl" />
-   
+
+
    
 </beans>
