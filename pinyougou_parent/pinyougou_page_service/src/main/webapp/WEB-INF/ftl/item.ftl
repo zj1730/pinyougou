@@ -36,7 +36,7 @@
 <#assign customAttributeList=goodsDesc.customAttributeItems?eval>
 <#assign specificationList=goodsDesc.specificationItems?eval>
 
-<#include "head.rtf">
+<#include "head.ftl">
 	<div class="py-container">
 		<div id="item">
 			<div class="crumb-wrap">
@@ -532,7 +532,7 @@
 	</div>
 	<!-- 底部栏位 -->
 	
-<#include "buttom.rtf">
+<#include "buttom.ftl">
 </body>
 
 </html>

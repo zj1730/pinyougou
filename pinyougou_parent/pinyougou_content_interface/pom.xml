@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.pinyougou</groupId>
-            <artifactId>pinyougou_pojo</artifactId>
+            <artifactId>pinyougou_dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

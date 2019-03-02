@@ -50,7 +50,7 @@ public class PageServiceImpl implements PageService {
             //获取配置对象
             Configuration configuration = freeMarkerConfigurer.getConfiguration();
             //获取模板对象
-            Template template = configuration.getTemplate("item.rtf");
+            Template template = configuration.getTemplate("item.ftl");
             //创建数据模型
             HashMap<String, Object> dataModel = new HashMap<>();
             //获取商品信息
