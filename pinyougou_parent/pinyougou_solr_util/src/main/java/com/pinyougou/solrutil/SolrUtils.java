@@ -85,8 +85,8 @@ public class SolrUtils {
         SolrUtils solrUtils = (SolrUtils) applicationContext.getBean("solrUtils");
 
         //调用
-        solrUtils.importItemData();
+//        solrUtils.importItemData();
 //        solrUtils.delteById();
-//          solrUtils.deleteAll();
+          solrUtils.deleteAll();
     }
 }

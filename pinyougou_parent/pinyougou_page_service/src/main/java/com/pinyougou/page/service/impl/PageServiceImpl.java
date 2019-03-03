@@ -1,23 +1,20 @@
 package com.pinyougou.page.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.pinyougou.mapper.TbGoodsDescMapper;
 import com.pinyougou.mapper.TbGoodsMapper;
 import com.pinyougou.mapper.TbItemCatMapper;
 import com.pinyougou.mapper.TbItemMapper;
 import com.pinyougou.page.service.PageService;
 import com.pinyougou.pojo.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -90,5 +87,16 @@ public class PageServiceImpl implements PageService {
             return false;
         }
 
+    }
+
+    @Override
+    public void delHtml(Long[] ids) {
+
+        for (Long id : ids) {
+            File file = new File(pageDir + id + ".html");
+            if (file.exists()){
+                file.delete();
+            }
+        }
     }
 }

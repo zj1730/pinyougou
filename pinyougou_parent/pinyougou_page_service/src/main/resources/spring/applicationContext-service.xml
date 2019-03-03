@@ -9,14 +9,8 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:property-placeholder location="classpath*:properties/*.properties"></context:property-placeholder>
-	<!--指定传输协议暴露的端口-->
-    <dubbo:protocol name="dubbo" port="20889"></dubbo:protocol>
-	<!--当前应用名称-->
-	<dubbo:application name="pinyougou_page_service"/>
-	<!--连接zookeeper的地址-->
-    <dubbo:registry address="zookeeper://192.168.25.129:2181"/>
-	<!--包扫描路径-->
-    <dubbo:annotation package="com.pinyougou.page.service.impl" />
+	<!--配置包扫描 之前是dubbox进行扫描，所以不用配置-->
+	<context:component-scan base-package="com.pinyougou.page"/>
 
 	<!--创建freemaker-->
 	<bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">

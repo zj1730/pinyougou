@@ -7,6 +7,7 @@ import org.csource.fastdfs.StorageServer;
 import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
 
+
 public class FastDFSClient {
 
 	private TrackerClient trackerClient = null;
@@ -23,6 +24,7 @@ public class FastDFSClient {
 		trackerServer = trackerClient.getConnection();
 		storageServer = null;
 		storageClient = new StorageClient1(trackerServer, storageServer);
+
 	}
 	
 	/**

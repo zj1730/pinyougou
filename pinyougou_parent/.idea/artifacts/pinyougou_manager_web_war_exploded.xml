@@ -79,18 +79,16 @@
           <element id="archive" name="pinyougou_content_interface-1.0-SNAPSHOT.jar">
             <element id="module-output" name="pinyougou_content_interface" />
           </element>
-          <element id="archive" name="pinyougou_search_interface-1.0-SNAPSHOT.jar">
-            <element id="module-output" name="pinyougou_search_interface" />
-          </element>
-          <element id="archive" name="pinyougou_page_interface-1.0-SNAPSHOT.jar">
-            <element id="module-output" name="pinyougou_page_interface" />
-          </element>
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:4.1.0.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:4.1.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:4.1.0.RELEASE" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.2" />
+          <element id="library" level="project" name="Maven: org.apache.activemq:activemq-client:5.13.4" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1" />
+          <element id="library" level="project" name="Maven: org.fusesource.hawtbuf:hawtbuf:1.11" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-j2ee-management_1.1_spec:1.0.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">
