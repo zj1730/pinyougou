@@ -1,11 +1,14 @@
 package com.pinyougou.user.controller;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pinyougou.user.service.UserService;
 import com.pinyougou.user.utils.PhoneFormatCheckUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +69,14 @@ public class UserController {
 			e.printStackTrace();
 			return new Result(false,"验证码发送失败");
 		}
+	}
+
+	@RequestMapping("/getName")
+	private Map getName(){
+		Map map = new HashMap();
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		map.put("username",name);
+		return map;
 	}
 
 	

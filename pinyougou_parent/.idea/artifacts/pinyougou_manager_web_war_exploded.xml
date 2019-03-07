@@ -76,6 +76,7 @@
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-keyvalue:1.1.2.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-oxm:4.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.21" />
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
           <element id="archive" name="pinyougou_content_interface-1.0-SNAPSHOT.jar">
             <element id="module-output" name="pinyougou_content_interface" />
           </element>
