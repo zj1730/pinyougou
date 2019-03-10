@@ -2,6 +2,7 @@ package com.pinyougou.manager.controller;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
+//import com.pinyougou.page.service.PageService;
 import com.pinyougou.pojo.TbItem;
 import com.pinyougou.pojogroup.Goods;
 import com.pinyougou.sellergoods.service.ItemService;
@@ -199,7 +200,7 @@ public class GoodsController {
         }
     }
 
-   /* @RequestMapping("/getHtml")
+    /*@RequestMapping("/getHtml")
 	public Result getHtml(Long goodsId){
 		//生成html文件
 		boolean flag = pageService.getItemHtml(goodsId);

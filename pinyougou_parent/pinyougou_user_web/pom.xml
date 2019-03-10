@@ -120,7 +120,7 @@
                 <version>2.2</version>
                 <configuration>
                     <!-- 指定端口 -->
-                    <port>9013</port>
+                    <port>9106</port>
                     <!-- 请求路径 -->
                     <path>/</path>
                 </configuration>

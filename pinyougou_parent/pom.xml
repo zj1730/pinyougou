@@ -4,6 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--dubbox端口分配
+    cart service  20887
+    content service 20882
+    page service 没用dubbox
+    search service 20883
+    sellergoods service 20881
+    user service 20885
+    order service 20886
+    -->
+
     <groupId>com.pinyougou</groupId>
     <artifactId>pinyougou_parent</artifactId>
     <packaging>pom</packaging>
@@ -29,6 +39,11 @@
         <module>pinyougou_user_service</module>
         <module>pinyougou_user_interface</module>
         <module>pinyougou_user_web</module>
+        <module>pinyougou_cart_interface</module>
+        <module>pinyougou_cart_service</module>
+        <module>pinyougou_cart_web</module>
+        <module>pinyougou_order_interface</module>
+        <module>pinyougou_order_service</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->

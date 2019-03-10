@@ -1,5 +1,5 @@
 //控制
-app.controller('itemController' ,function($scope){	
+app.controller('itemController' ,function($scope,itemService){
 
 	//定义规格数据全局变量
 	$scope.spec={};
@@ -66,7 +66,14 @@ app.controller('itemController' ,function($scope){
 
     //添加到购物车  -- 预留接口
     $scope.addToCart=function(){
-        alert('skuid:'+$scope.sku.id);
+        // alert('skuid:'+$scope.sku.id);
+        itemService.addToCart($scope.sku.id,$scope.num).success(function (response) {
+			if(response.success){
+				location.href="http://localhost:9107/cart.html";
+			}else{
+				alert(response.message);
+			}
+        });
     }
 
 

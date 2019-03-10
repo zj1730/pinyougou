@@ -111,7 +111,7 @@
                     <artifactId>tomcat7-maven-plugin</artifactId>
                     <configuration>
                         <path>/</path>
-                        <port>9012</port>
+                        <port>9006</port>
                     </configuration>
                 </plugin>
             </plugins>
