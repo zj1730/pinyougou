@@ -12,6 +12,7 @@
     sellergoods service 20881
     user service 20885
     order service 20886
+    pay service  20884
     -->
 
     <groupId>com.pinyougou</groupId>
@@ -44,6 +45,8 @@
         <module>pinyougou_cart_web</module>
         <module>pinyougou_order_interface</module>
         <module>pinyougou_order_service</module>
+        <module>pinyougou_pay_interface</module>
+        <module>pinyougou_pay_service</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->

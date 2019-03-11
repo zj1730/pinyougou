@@ -1,6 +1,7 @@
 package com.pinyougou.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class TbPayLog implements Serializable {
@@ -10,7 +11,7 @@ public class TbPayLog implements Serializable {
 
     private Date payTime;
 
-    private Long totalFee;
+    private BigDecimal totalFee;
 
     private String userId;
 
@@ -46,11 +47,11 @@ public class TbPayLog implements Serializable {
         this.payTime = payTime;
     }
 
-    public Long getTotalFee() {
+    public BigDecimal getTotalFee() {
         return totalFee;
     }
 
-    public void setTotalFee(Long totalFee) {
+    public void setTotalFee(BigDecimal totalFee) {
         this.totalFee = totalFee;
     }
 
